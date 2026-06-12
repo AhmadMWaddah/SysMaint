@@ -1,3 +1,5 @@
+![SysMint](https://github.com/AhmadMWaddah/SysMaint/blob/master/SysMaint.png)
+
 # SysMaint
 
 Automated system maintenance for Ubuntu — one command, all updates, one log.
