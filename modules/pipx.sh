@@ -19,11 +19,20 @@ pipx_update_self() {
     print_command "pip3 install --user --upgrade pipx"
     echo " "
 
-    if pip3 install --user --upgrade pipx 2>/dev/null || python3 -m pip install --user --upgrade pipx 2>/dev/null; then
+    local pipx_output
+    pipx_output=$(pip3 install --user --upgrade pipx 2>&1 || python3 -m pip install --user --upgrade pipx 2>&1)
+    local exit_code=$?
+
+    if [[ $exit_code -eq 0 ]]; then
         print_success "pipx updated to latest version"
         return 0
     else
-        print_error "pipx update failed"
+        print_error "pipx update failed with exit code ${exit_code}"
+        print_error "Reason:"
+        while IFS= read -r line; do
+            [[ -n "$line" ]] && print_error "  ${line}"
+        done <<< "$pipx_output"
+        state_add_error "pipx update failed: $(printf '%s\n' "$pipx_output" | head -1)"
         return 1
     fi
 }
