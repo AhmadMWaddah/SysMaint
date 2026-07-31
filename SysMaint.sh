@@ -6,7 +6,7 @@
 =====================================================================
 Description:
   - Automated maintenance script for updating system packages and package managers
-  - Updates system packages (apt), npm itself, and pipx itself
+  - Updates system packages (apt), Node.js (latest LTS), npm, and pipx
   - Refreshes rkhunter database after updates
 
 Features:
@@ -64,6 +64,7 @@ run_all_modules() {
 
     module_run "apt" "true" "true" "false" "true" "true"
     module_run "kernel" "2"
+    module_run "node"
     module_run "npm" "true"
     module_run "pipx" "true" "false"
     
@@ -79,7 +80,7 @@ run_all_modules() {
         state_log_to_file "$log_file"
     fi
 
-    print_final_summary "${execution_time}" "5"
+    print_final_summary "${execution_time}" "6"
 }
 
 main() {
@@ -95,9 +96,10 @@ if [[ "${1:-}" == "help" || "${1:-}" == "-h" ]]; then
     echo "This script runs all maintenance tasks automatically:"
     echo "  1. Apt System Update (update + list upgradable -a + upgrade + cleanup)"
     echo "  2. Clean up old kernels (keeps newest 2)"
-    echo "  3. Update npm to latest"
-    echo "  4. Update pipx to latest"
-    echo "  5. Refresh rkhunter database (after updates)"
+    echo "  3. Update Node.js to latest stable LTS (NodeSource)"
+    echo "  4. Update npm to latest compatible version"
+    echo "  5. Update pipx to latest"
+    echo "  6. Refresh rkhunter database (after updates)"
     echo " "
     exit 0
 fi
