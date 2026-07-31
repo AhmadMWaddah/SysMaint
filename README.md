@@ -13,9 +13,10 @@ Runs all maintenance tasks in sequence:
 3. **apt autoremove** — remove unused packages
 4. **apt autoclean** — clear repository cache
 5. **Kernel cleanup** — remove old kernels, keep newest 2
-6. **npm update** — update Node.js package manager
-7. **pipx update** — update Python tool installer
-8. **rkhunter refresh** — re-baseline after updates
+6. **Node.js update** — update to latest stable LTS from NodeSource
+7. **npm update** — update to the highest npm version compatible with the installed Node.js
+8. **pipx update** — update Python tool installer
+9. **rkhunter refresh** — re-baseline after updates
 
 ## Why
 
@@ -64,7 +65,8 @@ SysMaint/
 └── modules/
     ├── apt.sh           # System update/upgrade
     ├── kernel.sh        # Old kernel cleanup
-    ├── npm.sh           # npm self-update
+    ├── node.sh          # Node.js LTS update (NodeSource)
+    ├── npm.sh           # npm self-update (version-aware)
     └── pipx.sh          # pipx self-update
 ```
 
